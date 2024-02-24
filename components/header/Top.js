@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.scss";
-import India from "../../public/India.png";
 import Profile from "../../public/profile.jpg";
 import { MdSecurity } from "react-icons/md";
 import { BsSuitHeart } from "react-icons/bs";
@@ -9,7 +8,8 @@ import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
 
-export default function Top() {
+export default function Top({ country }) {
+    console.log(country);
     const [loggedIn, setLoggedIn] = useState(true);
     const [visible, setVisible] = useState(false);
     return (
@@ -18,8 +18,8 @@ export default function Top() {
                 <div></div>
                 <ul className={styles.top__list}>
                     <li className={styles.li}>
-                        <Image src={India} alt="Not Found" />
-                        <span>India / rupees</span>
+                        <img src={country.flag} alt="Not Found" />
+                        <span>{country.name} / rupees</span>
                     </li>
                     <li className={styles.li}>
                         <MdSecurity />

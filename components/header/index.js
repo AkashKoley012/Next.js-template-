@@ -1,12 +1,12 @@
 import Main from "./Main";
 import Top from "./Top";
-import Ad from "./ad";
+import Ad from "./Ad";
 import styles from "./styles.module.scss";
-export default function Header() {
+export default function Header({ country }) {
     return (
         <header className={styles.header}>
             <Ad />
-            <Top />
+            <Top country={country} />
             <Main />
         </header>
     );
