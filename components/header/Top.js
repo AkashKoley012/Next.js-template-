@@ -1,16 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.scss";
-import Profile from "../../public/profile.jpg";
 import { MdSecurity } from "react-icons/md";
 import { BsSuitHeart } from "react-icons/bs";
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
+import { useSession } from "next-auth/react";
 
 export default function Top({ country }) {
-    console.log(country);
-    const [loggedIn, setLoggedIn] = useState(true);
+    const { data: session } = useSession();
     const [visible, setVisible] = useState(false);
     return (
         <div className={styles.top}>
@@ -18,7 +16,7 @@ export default function Top({ country }) {
                 <div></div>
                 <ul className={styles.top__list}>
                     <li className={styles.li}>
-                        <img src={country.flag} alt="Not Found" />
+                        <img src={country.flag} alt="" />
                         <span>{country.name} / rupees</span>
                     </li>
                     <li className={styles.li}>
@@ -38,10 +36,10 @@ export default function Top({ country }) {
                         </Link>
                     </li>
                     <li className={styles.li} onMouseOver={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
-                        {loggedIn ? (
+                        {session ? (
                             <div className={styles.flex}>
-                                <Image src={Profile} alt="Not Found" />
-                                <span>iCoderAkash</span>
+                                <img src={session.user.image} alt="" />
+                                <span>{session.user.name}</span>
                                 <RiArrowDropDownFill />
                             </div>
                         ) : (
@@ -51,7 +49,7 @@ export default function Top({ country }) {
                                 <RiArrowDropDownFill />
                             </div>
                         )}
-                        {visible && <UserMenu loggedIn={loggedIn} img={Profile} />}
+                        {visible && <UserMenu session={session} />}
                     </li>
                 </ul>
             </div>
