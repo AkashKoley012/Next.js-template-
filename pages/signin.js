@@ -170,7 +170,7 @@ export default function Signin({ providers, csrfToken, callbackUrl }) {
                     <span className={styles.error}>{login_error}</span>
                   )}
                   <div className={styles.forget}>
-                    <Link href="/forget">Forget password ?</Link>
+                    <Link href="/auth/forget">Forget password ?</Link>
                   </div>
                 </Form>
               )}
@@ -264,7 +264,7 @@ export async function getServerSideProps(context) {
   if (session) {
     return {
       redirect: {
-        destination: callbackUrl,
+        destination: callbackUrl || "/",
       },
     };
   }

@@ -5,6 +5,7 @@ import { validateEmail } from "@/utils/validation";
 import { createRouter } from "next-connect";
 import { createActivationToken } from "@/utils/token";
 import { sendEmail } from "@/utils/sendEmails";
+import { activateEmailTemplate } from "@/emails/activateEmailTemplate";
 
 const router = createRouter();
 
@@ -37,7 +38,7 @@ router.post(async (req, res) => {
       id: savedUser._id.toString(),
     });
     const url = `${process.env.BASE_URL}/activate/${activation_token}`;
-    sendEmail(email, url, "", "Activate your account.");
+    sendEmail(email, url, "", "Activate your account.", activateEmailTemplate);
     await db.disconnectDb();
     return res.json({
       message: "Success Registration, Please activate your to start",
